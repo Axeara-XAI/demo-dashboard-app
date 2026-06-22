@@ -138,15 +138,15 @@ export default function IdentitasOrangTua({ data, updateFields }: StepProps) {
               onOptionSelect={(e, props) => updateFields({ racemom: props.optionValue as string })}
             >
               <Option value="0">Unknown</Option>
-              <Option value="1">OTHER_NON_WHITE</Option>
-              <Option value="2">WHITE</Option>
-              <Option value="3">BLACK</Option>
-              <Option value="4">AMERICAN_INDIAN</Option>
-              <Option value="5">CHINESE</Option>
-              <Option value="6">JAPANESE</Option>
-              <Option value="7">HAWAIIAN</Option>
-              <Option value="8">FILIPINO</Option>
-              <Option value="9">OTHER_ASIAN</Option>
+              <Option value="1">Other Non White</Option>
+              <Option value="2">Whte</Option>
+              <Option value="3">Black</Option>
+              <Option value="4">America Indian</Option>
+              <Option value="5">Chinese</Option>
+              <Option value="6">Japanese</Option>
+              <Option value="7">Hawaiian</Option>
+              <Option value="8">Filipino</Option>
+              <Option value="9">Other Asia</Option>
             </Dropdown>
           </div>
         </div>
@@ -261,15 +261,15 @@ export default function IdentitasOrangTua({ data, updateFields }: StepProps) {
               onOptionSelect={(e, props) => updateFields({ racedad: props.optionValue as string })}
             >
               <Option value="0">Unknown</Option>
-              <Option value="1">OTHER_NON_WHITE</Option>
-              <Option value="2">WHITE</Option>
-              <Option value="3">BLACK</Option>
-              <Option value="4">AMERICAN_INDIAN</Option>
-              <Option value="5">CHINESE</Option>
-              <Option value="6">JAPANESE</Option>
-              <Option value="7">HAWAIIAN</Option>
-              <Option value="8">FILIPINO</Option>
-              <Option value="9">OTHER_ASIAN</Option>
+              <Option value="1">Other Non White</Option>
+              <Option value="2">Whte</Option>
+              <Option value="3">Black</Option>
+              <Option value="4">America Indian</Option>
+              <Option value="5">Chinese</Option>
+              <Option value="6">Japanese</Option>
+              <Option value="7">Hawaiian</Option>
+              <Option value="8">Filipino</Option>
+              <Option value="9">Other Asia</Option>
             </Dropdown>
           </div>
         </div>
