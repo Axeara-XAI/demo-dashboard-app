@@ -91,7 +91,7 @@ export default function ServicesSection() {
       name: 'Riwayat Klinis',
       icon: <Clipboard24Regular />,
       description: 'Akses, kelola, dan pantau data rekam medis terpadu dengan tingkat keamanan tinggi.',
-      href: '/dashboard/riwayat-klinis',
+      href: '/dashboard/clinical-history',
     },
     {
       name: 'Kontainer data',

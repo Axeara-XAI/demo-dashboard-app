@@ -6,11 +6,18 @@ import { AnalysisFormData } from '../../../../type/analysis';
 
 const useStyles = makeStyles({
   formSection: { display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '700px' },
+  // Menambahkan class untuk bagian bawah agar ada jarak/padding yang pas (tidak terlalu besar)
+  formSectionBottom: { display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '700px', marginTop: '32px', paddingBottom: '32px' },
   sectionTitle: { fontSize: '16px', fontWeight: '600', marginBottom: '8px', color: tokens.colorBrandForeground1, borderBottom: `1px dashed ${tokens.colorNeutralStroke2}`, paddingBottom: '8px' },
   formRow: { display: 'grid', gridTemplateColumns: '260px 1fr', alignItems: 'center', gap: '16px' },
   labelWrapper: { display: 'flex', alignItems: 'center', gap: '4px' },
   inputWrapper: { display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'flex-start', width: '100%' },
   inputField: { width: '100%' },
+  // Menyamakan tinggi dropdown menjadi fix 150px dan bisa di-scroll
+  dropdownListbox: { 
+    height: '150px', 
+    overflowY: 'auto' 
+  }
 });
 
 interface StepProps {
@@ -55,6 +62,8 @@ export default function RiwayatKesehatanIbu({ data, updateFields }: StepProps) {
               multiselect 
               placeholder="Pilih kondisi penyerta" 
               className={styles.inputField}
+              positioning="below" // Memaksa buka ke bawah
+              listbox={{ className: styles.dropdownListbox }} // Menerapkan tinggi 150px
               selectedOptions={selectedPenyakit}
               value={selectedPenyakit.map(k => PENYAKIT_KRONIS[k]).join(', ')}
               onOptionSelect={(e, props) => {
@@ -76,6 +85,8 @@ export default function RiwayatKesehatanIbu({ data, updateFields }: StepProps) {
               multiselect 
               placeholder="Pilih infeksi" 
               className={styles.inputField}
+              positioning="below" // Memaksa buka ke bawah
+              listbox={{ className: styles.dropdownListbox }} // Menerapkan tinggi 150px
               selectedOptions={selectedInfeksi}
               value={selectedInfeksi.length ? 'Herpes (HERPES)' : ''}
               onOptionSelect={(e, props) => {
@@ -94,6 +105,8 @@ export default function RiwayatKesehatanIbu({ data, updateFields }: StepProps) {
               multiselect 
               placeholder="Pilih kondisi obstetri" 
               className={styles.inputField}
+              positioning="below" // Memaksa buka ke bawah
+              listbox={{ className: styles.dropdownListbox }} // Menerapkan tinggi 150px
               selectedOptions={selectedObstetri}
               value={selectedObstetri.map(k => KONDISI_OBSTETRI[k]).join(', ')}
               onOptionSelect={(e, props) => {
@@ -124,7 +137,8 @@ export default function RiwayatKesehatanIbu({ data, updateFields }: StepProps) {
         </div>
       </div>
 
-      <div className={styles.formSection} style={{ marginTop: '32px' }}>
+      {/* Menerapkan formSectionBottom agar ada padding yang aman di bawah */}
+      <div className={styles.formSectionBottom}>
         <h2 className={styles.sectionTitle}>Riwayat Kehamilan Sebelumnya</h2>
         
         <div className={styles.formRow}>

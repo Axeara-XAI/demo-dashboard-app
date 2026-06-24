@@ -107,21 +107,21 @@ const STEP_LIST = [
 export default function AnalysisBody({ currentStep, setCurrentStep }: AnalysisBodyProps) {
   const styles = useStyles();
 
-  const [formData, setFormData] = useState<AnalysisFormData>({
+const [formData, setFormData] = useState<AnalysisFormData>({
     // Langkah 1: Identitas Orang Tua
     nama_ibu: '', 
     mage: '', 
     meduc_cat: '',
     meduc_raw: 1, 
-    racemom: '0', 
-    hispmom: 'N', 
-    marital: '1', 
+    racemom: '', 
+    hispmom: '', 
+    marital: '', 
     nama_ayah: '', 
     fage: '', 
     feduc_cat: '',
     feduc_raw: 1, 
-    racedad: '0', 
-    hispdad: 'N',
+    racedad: '', 
+    hispdad: '',
     
     // Langkah 2: Riwayat Kesehatan Ibu
     anemia: false, 
