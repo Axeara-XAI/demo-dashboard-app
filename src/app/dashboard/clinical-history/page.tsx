@@ -13,11 +13,18 @@ import {
 
 const useStyles = makeStyles({
   pageContainer: {
-    padding: '24px',
-    maxWidth: '1200px',
-    margin: '0 auto',
-    minHeight: '100vh',
-    backgroundColor: tokens.colorNeutralBackgroundAlpha,
+    // PERBAIKAN: Padding bawah di-set ke 0px agar footer bisa mentok ke dasar layar
+    // Format: Atas (24px) | Kanan (32px) | Bawah (0px) | Kiri (32px)
+    padding: '24px 32px 0px 32px', 
+    width: '100%',
+    boxSizing: 'border-box',
+    
+    // PERBAIKAN FLEXBOX: Mengubah container menjadi flex agar komponen anak bisa "melar"
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: 'calc(100vh - 56px)', // Mengurangi estimasi tinggi Navbar
+    
+    backgroundColor: tokens.colorNeutralBackground1,
   },
   backButton: {
     marginBottom: '24px',
@@ -52,13 +59,11 @@ const DUMMY_HISTORY: AssessmentRecord[] = [
 export default function ClinicalHistoryPage() {
   const styles = useStyles();
   
-  // State untuk menyimpan pasien mana yang sedang dipilih
   const [selectedPatient, setSelectedPatient] = useState<PatientContainer | null>(null);
 
   return (
     <div className={styles.pageContainer}>
       
-      {/* JIKA TIDAK ADA PASIEN TERPILIH -> TAMPILKAN DAFTAR KARTU PASIEN */}
       {!selectedPatient && (
         <PatientDirectory 
           patients={DUMMY_PATIENTS} 
@@ -66,7 +71,6 @@ export default function ClinicalHistoryPage() {
         />
       )}
 
-      {/* JIKA ADA PASIEN TERPILIH -> TAMPILKAN RIWAYAT KLINISNYA */}
       {selectedPatient && (
         <>
           <Button 
@@ -80,7 +84,6 @@ export default function ClinicalHistoryPage() {
 
           <HistoryHeader patient={selectedPatient} />
           
-          {/* Di masa depan, DUMMY_HISTORY ini harus di-filter berdasarkan ID pasien yang diklik */}
           <AssessmentList assessments={DUMMY_HISTORY} />
         </>
       )}

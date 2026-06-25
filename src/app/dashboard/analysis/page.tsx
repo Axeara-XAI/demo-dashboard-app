@@ -11,11 +11,20 @@ import {
 // STYLES DEFINITION
 // ============================================================================
 const useStyles = makeStyles({
+  // 1. WRAPPER LUAR: Bertugas memberi jarak aman dari tepi layar (menggantikan fungsi layout global)
+  pageWrapper: {
+    padding: '24px 32px 32px 32px',
+    width: '100%',
+    boxSizing: 'border-box',
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: 'calc(100vh - 56px)', // Mengambil sisa layar di bawah Navbar
+  },
+  // 2. CONTAINER KARTU: Tampilan antarmuka Analysis yang sesungguhnya
   pageContainer: {
     display: 'flex',
     flexDirection: 'column',
-    height: '100%', 
-    minHeight: 'calc(100vh - 100px)',
+    flexGrow: 1, // KUNCI: Memaksa kartu ini memanjang ke bawah mengisi wrapper
     backgroundColor: tokens.colorNeutralBackground1,
     border: `1px solid ${tokens.colorNeutralStroke1}`,
     borderRadius: tokens.borderRadiusMedium,
@@ -42,9 +51,11 @@ export default function AnalysisPage() {
   if (!isMounted) return null;
 
   return (
-    <div className={styles.pageContainer}>
-      <AnalysisHeader isFormDirty={isFormDirty} />
-      <AnalysisBody currentStep={currentStep} setCurrentStep={setCurrentStep} />
+    <div className={styles.pageWrapper}>
+      <div className={styles.pageContainer}>
+        <AnalysisHeader isFormDirty={isFormDirty} />
+        <AnalysisBody currentStep={currentStep} setCurrentStep={setCurrentStep} />
+      </div>
     </div>
   );
 }

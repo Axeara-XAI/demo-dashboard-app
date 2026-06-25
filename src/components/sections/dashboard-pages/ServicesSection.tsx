@@ -20,6 +20,11 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     gap: '16px',
     marginBottom: '32px',
+    // PERBAIKAN: Menambahkan padding yang sebelumnya dihapus dari layout global
+    // Format: Atas (24px) | Kanan (32px) | Bawah (0px) | Kiri (32px)
+    padding: '24px 32px 0 32px',
+    width: '100%',
+    boxSizing: 'border-box', // Mencegah padding menambah total lebar layar
   },
   sectionTitle: {
     fontSize: '20px',
@@ -75,7 +80,7 @@ const useStyles = makeStyles({
 // ============================================================================
 export default function ServicesSection() {
   const styles = useStyles();
-  const router = useRouter(); // Inisialisasi router dari Next.js
+  const router = useRouter(); 
 
   // ==========================================================================
   // DATA PAYLOAD
@@ -128,11 +133,10 @@ export default function ServicesSection() {
             key={index}
             className={styles.card}
             appearance="outline"
-            onClick={() => router.push(service.href)} // Aksi navigasi saat diklik
-            role="button" // Aksesibilitas tambahan
-            tabIndex={0} // Memungkinkan navigasi via keyboard (Tab)
+            onClick={() => router.push(service.href)} 
+            role="button" 
+            tabIndex={0} 
             onKeyDown={(e) => {
-              // Dukungan klik menggunakan tombol Enter untuk aksesibilitas
               if (e.key === 'Enter') {
                 router.push(service.href);
               }

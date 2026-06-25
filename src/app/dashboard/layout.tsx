@@ -18,10 +18,9 @@ const useStyles = makeStyles({
     overflowY: 'auto',
   },
   contentBody: {
-    padding: '32px',
-    maxWidth: '1440px',
-    margin: '0 auto',
     width: '100%',
+    padding: '0px', // KITA NOL-KAN AGAR JARAK DIATUR OLEH PAGE.TSX
+    // maxWidth dan margin auto kita hapus agar bisa membentang full screen
   },
 });
 

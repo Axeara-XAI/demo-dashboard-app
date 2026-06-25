@@ -21,12 +21,19 @@ import {
   Share24Regular 
 } from '@fluentui/react-icons';
 
+// ============================================================================
+// STYLES DEFINITION
+// ============================================================================
 const useStyles = makeStyles({
   container: {
     display: 'flex',
     flexDirection: 'column',
     gap: '12px',
-    marginBottom: '32px',
+    // PERBAIKAN: Menyesuaikan margin dengan ServicesSection
+    // Format: Atas (0px) | Kanan (32px) | Bawah (32px) | Kiri (32px)
+    padding: '0 32px 32px 32px',
+    width: '100%',
+    boxSizing: 'border-box', // Mencegah scroll horizontal
   },
   sectionTitle: {
     fontSize: '20px',
@@ -67,6 +74,9 @@ const recentHistoryData = [
   { name: 'Konfigurasi Endpoint API', type: 'Kontainer data', lastAccessed: '1 minggu yang lalu', icon: <Box24Regular /> },
 ];
 
+// ============================================================================
+// MAIN COMPONENT
+// ============================================================================
 export default function RecentHistorySection() {
   const styles = useStyles();
   const [selectedTab, setSelectedTab] = useState<string>('terbaru');
