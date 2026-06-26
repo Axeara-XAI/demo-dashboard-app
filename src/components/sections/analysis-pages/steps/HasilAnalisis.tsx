@@ -37,7 +37,14 @@ const useStyles = makeStyles({
   },
 
   // --- BOX 1: SUMMARY GRID ---
-  summaryGrid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' },
+  summaryGrid: { 
+    display: 'grid', 
+    gridTemplateColumns: '1fr 1fr', 
+    gap: '16px',
+    '@media (max-width: 768px)': {
+      gridTemplateColumns: '1fr',
+    }
+  },
   mainCard: { padding: '16px', boxShadow: tokens.shadow2, border: `1px solid ${tokens.colorNeutralStroke1}` },
 
   // --- CONFIDENCE BAR ---
@@ -233,18 +240,18 @@ export default function HasilAnalisis({ formData, onApiDataLoaded }: StepProps) 
         };
 
         const payload = {
-          SEX: safeNum(formData.sex, 1, 2, 1),
           MARITAL: safeNum(formData.marital, 1, 2, 1),
-          FAGE: safeNum(formData.fage, 10, 70, 25), // Min 10
+          FAGE: safeNum(formData.fage, 10, 70, 25),
           GAINED: safeNum(formData.gained, 0, 100, 0),
           VISITS: safeNum(formData.visits, 0, 50, 0),
-          MAGE: safeNum(formData.mage, 10, 55, 25), // Min 10
+          MAGE: safeNum(formData.mage, 10, 55, 25),
           FEDUC: mapEducationToAiScale(formData.feduc_raw),
           MEDUC: mapEducationToAiScale(formData.meduc_raw),
           TOTALP: safeNum(formData.totalp, 0, 20, 0),
           BDEAD: safeNum(formData.bdead, 0, 10, 0),
           TERMS: 0,
-          LOUTCOME: safeNum(formData.loutcome, 1, 5, 1),
+          // LOUTCOME: nilai diskrit {1, 2, 9} — pastikan hanya nilai valid yang dikirim
+          LOUTCOME: [1, 2, 9].includes(Number(formData.loutcome)) ? Number(formData.loutcome) : 9,
           RACEMOM: safeNum(formData.racemom, 0, 8, 0),
           RACEDAD: safeNum(formData.racedad, 0, 8, 0),
           HISPMOM: formData.hispmom === 'N' ? 0 : 1,
