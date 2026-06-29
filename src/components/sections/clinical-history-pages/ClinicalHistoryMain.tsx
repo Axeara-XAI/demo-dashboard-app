@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { makeStyles, tokens, Button, Spinner, Text, Title3, Link, Body1 } from '@fluentui/react-components';
-import { ArrowLeftRegular, ArrowLeft24Regular } from '@fluentui/react-icons';
+import { makeStyles, tokens, Button, Spinner, Text } from '@fluentui/react-components';
 import { useRouter } from 'next/navigation';
 import {
   AssessmentList,
@@ -20,10 +19,6 @@ const useStyles = makeStyles({
     minHeight: 'calc(100vh - 56px)',
     backgroundColor: tokens.colorNeutralBackground1,
   },
-  backButton: {
-    marginBottom: '24px',
-    alignSelf: 'flex-start',
-  },
   centerContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -32,31 +27,6 @@ const useStyles = makeStyles({
     flex: 1,
     gap: '16px',
     padding: '60px 0',
-  },
-  header: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '16px',
-    paddingBottom: '16px',
-    marginBottom: '16px',
-    borderBottom: `1px solid ${tokens.colorNeutralStroke1}`
-  },
-  breadcrumb: {
-    fontSize: '14px',
-    color: tokens.colorNeutralForeground2,
-    display: 'flex',
-    alignItems: 'center',
-    gap: '8px',
-    marginBottom: '16px',
-  },
-  breadcrumbLink: {
-    color: tokens.colorNeutralForeground2,
-    cursor: 'pointer',
-    textDecoration: 'none',
-    ':hover': {
-      color: tokens.colorBrandForeground1,
-      textDecoration: 'underline',
-    },
   },
 });
 
@@ -167,21 +137,6 @@ export default function ClinicalHistoryMain() {
 
   return (
     <div className={styles.pageContainer}>
-      <div className={styles.breadcrumb}>
-        <Link className={styles.breadcrumbLink} onClick={() => router.push('/dashboard')}>
-          Beranda
-        </Link>
-        <span>&gt;</span>
-        <span>Riwayat Klinis</span>
-      </div>
-
-      <div className={styles.header}>
-        <Button appearance="subtle" icon={<ArrowLeft24Regular />} onClick={() => router.back()} />
-        <div>
-          <Title3>Riwayat Klinis Pasien</Title3>
-          <Body1 style={{ display: 'block', color: tokens.colorNeutralForeground3 }}>Sistem Manajemen Rekam Medis</Body1>
-        </div>
-      </div>
 
       {/* TAMPILAN JIKA BELUM ADA PASIEN YANG DIPILIH */}
       {!selectedPatient && (
@@ -209,29 +164,16 @@ export default function ClinicalHistoryMain() {
         </>
       )}
 
-      {/* TAMPILAN PROFIL PASIEN (KOMPONEN BARU KITA) */}
+      {/* TAMPILAN PROFIL PASIEN */}
       {selectedPatient && (
-        <>
-          <Button
-            appearance="subtle"
-            icon={<ArrowLeftRegular />}
-            onClick={() => setSelectedPatient(null)}
-            className={styles.backButton}
-          >
-            Kembali ke Daftar Pasien
-          </Button>
-
-          <AssessmentList 
-            patient={selectedPatient}
-            onBack={() => setSelectedPatient(null)}
-            onNewAnalysis={() => router.push('/dashboard/analysis')}
-            
-            // Melempar data API ke dalam AssessmentList
-            assessments={assessments}
-            isLoading={isAssessmentsLoading}
-            error={assessmentsError}
-          />
-        </>
+        <AssessmentList 
+          patient={selectedPatient}
+          onBack={() => setSelectedPatient(null)}
+          onNewAnalysis={() => router.push('/dashboard/analysis')}
+          assessments={assessments}
+          isLoading={isAssessmentsLoading}
+          error={assessmentsError}
+        />
       )}
 
     </div>
