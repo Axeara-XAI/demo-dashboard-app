@@ -1,13 +1,18 @@
 'use client';
 
 import React from 'react';
-import { makeStyles, tokens, Text, Link } from '@fluentui/react-components';
+import { makeStyles, tokens, Text, Link, Button } from '@fluentui/react-components';
+import { ArrowLeft24Regular } from '@fluentui/react-icons';
+import { useRouter } from 'next/navigation';
 
 const useStyles = makeStyles({
   headerSection: {
     display: 'flex',
     flexDirection: 'column',
     gap: '4px', 
+    paddingBottom: '16px',
+    marginBottom: '16px',
+    borderBottom: `1px solid ${tokens.colorNeutralStroke1}`,
   },
   breadcrumb: {
     color: tokens.colorNeutralForeground3,
@@ -19,13 +24,14 @@ const useStyles = makeStyles({
   titleRow: {
     display: 'flex',
     alignItems: 'center',
-    gap: '16px',
+    gap: '12px',
     flexWrap: 'wrap',
   },
 });
 
 export default function DirectoryHeader() {
   const styles = useStyles();
+  const router = useRouter();
 
   return (
     <div className={styles.headerSection}>
@@ -34,6 +40,12 @@ export default function DirectoryHeader() {
       </div>
       
       <div className={styles.titleRow}>
+        <Button
+          appearance="subtle"
+          icon={<ArrowLeft24Regular />}
+          onClick={() => router.back()}
+          aria-label="Kembali"
+        />
         <Text size={900} weight="semibold" style={{ color: tokens.colorNeutralForeground1 }}>
           Riwayat Klinis
         </Text>
