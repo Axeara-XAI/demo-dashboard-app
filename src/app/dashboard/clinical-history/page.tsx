@@ -1,11 +1,14 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
+<<<<<<< HEAD
 import { makeStyles, tokens, Button, Spinner, Text, Title3, Link, Body1 } from '@fluentui/react-components';
 import { ArrowLeftRegular, ArrowLeft24Regular } from '@fluentui/react-icons';
 import { useRouter } from 'next/navigation';
+=======
+import { makeStyles, tokens, Button, Spinner, Text } from '@fluentui/react-components';
+>>>>>>> cd07743dbac10dbaa8cc7ec5e93dfc51dce0625d
 import {
-  HistoryHeader,
   AssessmentList,
   PatientDirectory,
   PatientContainer,
@@ -23,10 +26,13 @@ const useStyles = makeStyles({
     minHeight: 'calc(100vh - 56px)',
     backgroundColor: tokens.colorNeutralBackground1,
   },
+<<<<<<< HEAD
   backButton: {
     marginBottom: '24px',
     alignSelf: 'flex-start',
   },
+=======
+>>>>>>> cd07743dbac10dbaa8cc7ec5e93dfc51dce0625d
   centerContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -63,18 +69,24 @@ const useStyles = makeStyles({
   },
 });
 
+export interface AssessmentRecord {
+  id: string;
+  date: string;
+  probability: number;
+  riskLabel: string;
+  narrative: string;
+}
+
 // ============================================================================
-// HELPERS: Mapping data API → tipe PatientContainer & AssessmentRecord
+// HELPERS: Mapping data API → tipe yang dibutuhkan UI
 // ============================================================================
 function mapToPatientContainer(raw: any): PatientContainer {
-  // Hitung umur dari dateOfBirth jika tersedia
   const dob = raw.dateOfBirth || '1990-01-01';
   const age = new Date().getFullYear() - new Date(dob).getFullYear();
   const formattedDob = new Date(dob).toLocaleDateString('id-ID', {
     day: 'numeric', month: 'long', year: 'numeric'
   });
 
-  // Format tanggal kunjungan terakhir dari createdAt
   const lastVisit = raw.createdAt
     ? new Date(raw.createdAt).toLocaleDateString('id-ID', {
         day: 'numeric', month: 'long', year: 'numeric',
@@ -91,6 +103,17 @@ function mapToPatientContainer(raw: any): PatientContainer {
 }
 
 
+<<<<<<< HEAD
+=======
+  return {
+    id: String(raw.assessmentId),
+    date,
+    probability: Math.round((raw.probability ?? 0) * 100),
+    riskLabel: raw.riskLabel ?? 'LOW',
+    narrative: raw.narrativeExplanation ?? 'Narasi tidak tersedia.',
+  };
+}
+>>>>>>> cd07743dbac10dbaa8cc7ec5e93dfc51dce0625d
 
 // ============================================================================
 // MAIN PAGE COMPONENT
@@ -101,11 +124,12 @@ export default function ClinicalHistoryPage() {
 
   const [selectedPatient, setSelectedPatient] = useState<PatientContainer | null>(null);
 
-  // State untuk daftar pasien
+  // State Pasien
   const [patients, setPatients] = useState<PatientContainer[]>([]);
   const [isPatientsLoading, setIsPatientsLoading] = useState(true);
   const [patientsError, setPatientsError] = useState<string | null>(null);
 
+<<<<<<< HEAD
   // State untuk riwayat asesmen (dikelola internal AssessmentTable)
 
   const fetchPatients = useCallback(async () => {
@@ -122,14 +146,40 @@ export default function ClinicalHistoryPage() {
       setIsPatientsLoading(false);
     }
   }, []);
+=======
+  // State Asesmen
+  const [assessments, setAssessments] = useState<AssessmentRecord[]>([]);
+  const [isAssessmentsLoading, setIsAssessmentsLoading] = useState(false);
+  const [assessmentsError, setAssessmentsError] = useState<string | null>(null);
+>>>>>>> cd07743dbac10dbaa8cc7ec5e93dfc51dce0625d
 
-  // Fetch daftar semua pasien saat komponen pertama kali dimuat
   useEffect(() => {
+<<<<<<< HEAD
+=======
+    const fetchPatients = async () => {
+      setIsPatientsLoading(true);
+      setPatientsError(null);
+      try {
+        const res = await fetch('/api/get-patients');
+        const json = await res.json();
+        if (!json.success) throw new Error(json.message);
+        setPatients(json.data.map(mapToPatientContainer));
+      } catch (err: any) {
+        setPatientsError(err.message || 'Gagal memuat daftar pasien.');
+      } finally {
+        setIsPatientsLoading(false);
+      }
+    };
+>>>>>>> cd07743dbac10dbaa8cc7ec5e93dfc51dce0625d
     fetchPatients();
   }, [fetchPatients]);
 
+<<<<<<< HEAD
   // Fetch riwayat asesmen saat pasien dipilih
   const handleSelectPatient = useCallback((patient: PatientContainer) => {
+=======
+  const handleSelectPatient = useCallback(async (patient: PatientContainer) => {
+>>>>>>> cd07743dbac10dbaa8cc7ec5e93dfc51dce0625d
     setSelectedPatient(patient);
   }, []);
 
@@ -151,9 +201,7 @@ export default function ClinicalHistoryPage() {
         </div>
       </div>
 
-      {/* ============================================================ */}
-      {/* PANEL KIRI: DAFTAR PASIEN                                    */}
-      {/* ============================================================ */}
+      {/* TAMPILAN JIKA BELUM ADA PASIEN YANG DIPILIH */}
       {!selectedPatient && (
         <>
           {isPatientsLoading && (
@@ -164,27 +212,28 @@ export default function ClinicalHistoryPage() {
 
           {patientsError && !isPatientsLoading && (
             <div className={styles.centerContainer}>
-              <Text style={{ color: tokens.colorPaletteRedForeground1 }}>
-                ⚠️ {patientsError}
-              </Text>
+              <Text style={{ color: tokens.colorPaletteRedForeground1 }}>⚠️ {patientsError}</Text>
               <Button onClick={() => window.location.reload()}>Coba Lagi</Button>
             </div>
           )}
 
           {!isPatientsLoading && !patientsError && (
+<<<<<<< HEAD
             <PatientDirectory
               patients={patients}
               onSelectPatient={handleSelectPatient}
               onRefresh={fetchPatients}
             />
+=======
+            <PatientDirectory patients={patients} onSelectPatient={handleSelectPatient} />
+>>>>>>> cd07743dbac10dbaa8cc7ec5e93dfc51dce0625d
           )}
         </>
       )}
 
-      {/* ============================================================ */}
-      {/* PANEL KANAN: DETAIL PASIEN + RIWAYAT ASESMEN                 */}
-      {/* ============================================================ */}
+      {/* TAMPILAN PROFIL PASIEN (KOMPONEN BARU KITA) */}
       {selectedPatient && (
+<<<<<<< HEAD
         <>
           <Button
             appearance="subtle"
@@ -201,6 +250,18 @@ export default function ClinicalHistoryPage() {
             onNewAnalysis={() => router.push('/dashboard/analysis')}
           />
         </>
+=======
+        <AssessmentList 
+          patient={selectedPatient}
+          onBack={() => setSelectedPatient(null)}
+          onNewAnalysis={() => alert('Buka form analisis baru!')}
+          
+          // Melempar data API ke dalam AssessmentList
+          assessments={assessments}
+          isLoading={isAssessmentsLoading}
+          error={assessmentsError}
+        />
+>>>>>>> cd07743dbac10dbaa8cc7ec5e93dfc51dce0625d
       )}
 
     </div>
